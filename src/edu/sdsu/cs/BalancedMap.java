@@ -19,7 +19,7 @@ public class BalancedMap<K, V> implements IMap {
 
 	@Override
 	public boolean add(Comparable key, Object value) {
-		return map.put(key, value) != null;
+		return map.put(key, value);
 	}
 
 	@Override
