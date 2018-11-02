@@ -1,86 +1,81 @@
 package edu.sdsu.cs;
 
+import edu.sdsu.cs.datastructures.IMap;
 import java.util.TreeMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 
-public class BalancedMap implements IMap {
-	TreeMap tree;
+public class BalancedMap<K, V> implements IMap {
+	TreeMap<K, V> map;
 	public BalancedMap() {
-		tree = new TreeMap();
+		map = new TreeMap<K, V>();
 	}
-
 
 	@Override
 	public boolean contains(Comparable key) {
-		return tree.containsKey(key);
+		return map.containsKey(key);
 	}
-	
 
 	@Override
 	public boolean add(Comparable key, Object value) {
-		return tree.put(key, value) != null;
+		return map.put(key, value);
 	}
 
 	@Override
 	public Object delete(Comparable key) {
-		return tree.remove(key) != null;
+		return map.remove(key);
 	}
 
 	@Override
 	public Object getValue(Comparable key) {
-		// TODO Auto-generated method stub
-		return tree.get(key);
+		return map.get(key);
 	}
 
 	@Override
-	public Comparable getKey(Object value) {
-		Iterator<Comparable> keyIter = tree.keySet().iterator();
-		Iterator<Object> valueIter = tree.values().iterator();
+	public Comparable<K> getKey(Object value) {
+		Iterator<K> keyIter = map.keySet().iterator();
+		Iterator<V> valueIter = map.values().iterator();
 		while (keyIter.hasNext()) {
-			Comparable tempK = keyIter.next();
 			Object tempV = valueIter.next();
-			if (tempV.equals(value))
-				return tempK;
+			if (tempV.equals(value)) {
+				Comparable<K> tempV2 = (Comparable<K>) tempV;
+				return tempV2;
+			}
 		}
-		return null;
+		return (Comparable<K>) map.get(value);
 	}
+		
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public Iterable getKeys(Object value) {
-		// TODO Auto-generated method stub
-		return null;
+	public Iterable<K> getKeys(Object value) {
+		return (Iterable<K>) map.get(value);
 	}
 
 	@Override
 	public int size() {
-		return tree.size();
+		return map.size();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return map.isEmpty();
 	}
 
 	@Override
 	public void clear() {
-		tree.clear();
+		map.clear();
 	}
 
 	@Override
-	public Iterable keyset() {
-		for(Map.Entry<Comparable,Object> entry : tree.entrySet()) {
-			  Comparable key = entry.getKey();
-			  Object value = entry.getValue();
-
-			  System.out.println(key + " => " + value);
-			}
+	public Iterable<K> keyset() {
+		return map.keySet();
 	}
 
 	@Override
-	public Iterable values() {
-		// TODO Auto-generated method stub
-		return null;
-	}}
+	public Iterable<V> values() {
+		return map.values();
+	}
+
+}
