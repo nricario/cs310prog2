@@ -1,6 +1,6 @@
 package edu.sdsu.cs;
 
-import edu.sdsu.cs.datastructures.IMap;
+import edu.sdsu.cs.IMap;
 import java.util.TreeMap;
 import java.util.ArrayList;
 
